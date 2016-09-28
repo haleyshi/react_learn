@@ -7,7 +7,9 @@ var reactify = require('reactify');
 
 gulp.task('copy', function() {
     gulp.src(['app/*.css'])
-        .pipe(gulp.dest('./.tmp'))
+        .pipe(gulp.dest('./.tmp'));
+    gulp.src(['bower_components/skeleton/css/*.css'])
+        .pipe(gulp.dest('./.tmp'));
 });
 
 gulp.task('bundle', ['copy'], function() {
