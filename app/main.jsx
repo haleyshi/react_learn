@@ -1,7 +1,7 @@
-var React = require('react/addons');
+var ReactDOM = require('react-dom');
 
 console.log("Hello from JSX!");
 
 var GroceryItemList = require('./components/GroceryItemList.jsx');
 
-React.render(<GroceryItemList />, app);
+ReactDOM.render(<GroceryItemList />, app);
