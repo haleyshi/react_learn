@@ -14,6 +14,7 @@ npm install --save gulp gulp-live-server
 npm install --save browser-sync
 npm install --save react
 bower install --save react
+npm install --save react-dom
 npm install -g react-tools
 npm install -g browserify
 npm install --save reactify
