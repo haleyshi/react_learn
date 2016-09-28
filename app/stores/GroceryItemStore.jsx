@@ -28,6 +28,14 @@ function GroceryItemStore() {
         triggerListeners();
     }
 
+    function deleteGroceryItem(item) {
+        var index = items.findIndex(function(_item){
+            return _item.name == item.name;
+        });
+        items.splice(index, 1);
+        triggerListeners();
+    }
+
     function onChange(listener) {
         listeners.push(listener);
     }
@@ -45,6 +53,9 @@ function GroceryItemStore() {
             switch(split[1]) {
                 case "add":
                     addGroceryItem(event.payload);
+                    break;
+                case "delete":
+                    deleteGroceryItem(event.payload);
                     break;
             }
         }
