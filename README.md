@@ -20,6 +20,7 @@ npm install -g browserify
 npm install --save reactify
 npm install --save browserify
 npm install --save vinyl-source-stream
+npm install --save guid
 
 vi gulpfile.js
 > gulp serve
