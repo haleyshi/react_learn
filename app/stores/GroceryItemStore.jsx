@@ -1,55 +1,43 @@
 var dispatcher = require('./../dispatcher.js');
 var helper = require('./../helpers/RestHelper.js');
 
-function GroceryItemStore() {
-    var items = [];
-
-    helper.get("api/items")
-    .then(function(data) {
-        items = data;
-        triggerListeners();
-    })
-    
+function GroceryItemStore() {  
     var listeners = [];
 
-    function getItems() {
-        return items;
+    function updateView() {
+        helper.get("api/items")
+        .then(function(data) {
+            triggerListeners(data);
+        })
     }
 
     function addGroceryItem(item) {
-        items.push(item);
-        triggerListeners();
-
-        helper.post("api/items", item);
+        helper.post("api/items", item)
+        .then(function() {
+            updateView();
+        }); 
     }
 
     function deleteGroceryItem(item) {
-        var index = items.findIndex(function(_item){
-            return _item.name == item.name;
+        helper.del("api/items/"+item._id)
+        .then(function() {
+            updateView();
         });
-        items.splice(index, 1);
-
-        triggerListeners();
-
-        helper.del("api/items/" + item._id);
     }
 
     function setGroceryItemBought(item, isBought) {
-        var index = items.findIndex(function(_item){
-            return _item.name == item.name;
+        item.purchased = isBought;
+        helper.patch("api/items", item)
+        .then(function() {
+            updateView();
         });
-        items[index].purchased = isBought;
-
-        triggerListeners();
-
-        helper.patch("api/items/"+item._id, item);
     }
 
     function onChange(listener) {
         listeners.push(listener);
     }
 
-    function triggerListeners() {
+    function triggerListeners(items) {
         listeners.forEach(function(listener) {
             listener(items);
         });
@@ -77,7 +65,7 @@ function GroceryItemStore() {
     });
 
     return {
-        getItems: getItems,
+        updateView: updateView,
         onChange: onChange
     }
 }
