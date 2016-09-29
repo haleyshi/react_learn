@@ -27,10 +27,25 @@ bower install --save skeleton
 npm install --save body-parser
 npm install --save jquery
 
-vi gulpfile.js
-> gulp serve
-
 # install MongoDB
 > mongod
 
 npm install --save mongoose
+
+npm install --save babel-register
+npm install --save-dev babel-preset-react
+npm install --save babel-plugin-transform-react-jsx
+
+vi .babelrc
+#####################
+{
+    "plugins": ["transform-react-jsx"],
+    "ignore": [
+        "foo.js",
+        "bar/**/*.js"
+    ]
+}
+########################
+
+vi gulpfile.js
+> gulp serve
